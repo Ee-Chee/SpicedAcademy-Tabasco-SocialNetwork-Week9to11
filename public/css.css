@@ -4,3 +4,18 @@
     align-items: center;
     /* border: 3px solid black; */
 }
+
+.app {
+    display: flex;
+    justify-content: space-between;
+}
+
+.profile {
+    display: flex;
+}
+
+.profile-details {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+}

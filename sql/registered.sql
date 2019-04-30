@@ -4,5 +4,7 @@ CREATE TABLE registered(
     firstN VARCHAR(100) NOT NULL CHECK (firstN!=''),
     lastN VARCHAR(100) NOT NULL CHECK (lastN!=''),
     email VARCHAR(300) NOT NULL UNIQUE CHECK (email!=''),
-    pw VARCHAR(300) NOT NULL CHECK (pw!='')
+    pw VARCHAR(300) NOT NULL CHECK (pw!=''),
+    avatarUrl VARCHAR(300),
+    bioText VARCHAR (500)
 );

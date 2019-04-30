@@ -11,3 +11,27 @@ exports.addRegister = function(firstName, lastName, email, passW) {
     let params = [firstName, lastName, email, passW];
     return db.query(q, params);
 };
+
+exports.getLogged = function(email) {
+    let q = `SELECT email, pw, id FROM registered WHERE email = $1;`;
+    let params = [email];
+    return db.query(q, params);
+};
+
+exports.getUserInfo = function(id) {
+    let q = `SELECT firstN, lastN, id, avatarUrl, bioText FROM registered WHERE id = $1;`;
+    let params = [id];
+    return db.query(q, params);
+};
+
+exports.addImage = function(url, id) {
+    let q = `UPDATE registered SET avatarUrl = $1 where id = $2 RETURNING avatarurl ;`;
+    let params = [url, id];
+    return db.query(q, params);
+};
+
+exports.addBio = function(bio, id) {
+    let q = `UPDATE registered SET bioText = $1 where id = $2 RETURNING bioText ;`;
+    let params = [bio, id];
+    return db.query(q, params);
+};
