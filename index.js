@@ -167,6 +167,54 @@ app.get("/api/user/:id", async (req, res) => {
         res.json({ redirect: true });
     } //user input /user/njasnkjfndjkfnjkd
 });
+//////////////////////////////////////////////handle friendship status
+app.get("/friendship/:id", async (req, res) => {
+    // console.log(req.session.userId); //viewer
+    // console.log(req.params.id); //owner
+    try {
+        const data = await dB.getFriendStatus(
+            req.session.userId,
+            req.params.id
+        );
+        // console.log(data.rows[0]);
+        res.json(data.rows[0]);
+    } catch (err) {
+        console.log("Err caught: ", err);
+    }
+});
+
+app.post("/handleFriendshipStatus", async (req, res) => {
+    // console.log(req.body);
+    if (!req.body.trigger) {
+        //empty body of trigger => no corresponding id => no data found in friends table
+        try {
+            const data = await dB.requestFriend(
+                req.session.userId,
+                req.body.profileownerid
+            );
+            // console.log(data.rows[0]);
+            res.json(data.rows[0]);
+        } catch (err) {
+            console.log("Err caught: ", err);
+        }
+    }
+    if (req.session.userId === req.body.trigger) {
+        try {
+            const data = await dB.acceptFriend(req.body.tableid, true);
+            res.json(data.rows[0]);
+        } catch (err) {
+            console.log("Err caught: ", err);
+        }
+    } else if (req.body.trigger) {
+        // console.log("hereeeeee delete");
+        try {
+            await dB.delete(req.body.trigger);
+            res.json({ status: "deleted" });
+        } catch (err) {
+            console.log("Err caught: ", err);
+        }
+    }
+});
 
 ///////////////////////////checking log-in status
 app.get("/welcome", (req, res) => {

@@ -35,3 +35,30 @@ exports.addBio = function(bio, id) {
     let params = [bio, id];
     return db.query(q, params);
 };
+
+exports.getFriendStatus = function(viewer, owner) {
+    let q = `SELECT * FROM friends WHERE (recipient_id = $1 AND sender_id = $2) OR (recipient_id = $2 AND sender_id = $1);`;
+    let params = [viewer, owner];
+    return db.query(q, params);
+};
+
+//handle "send Friend Request"
+exports.requestFriend = function(viewer, owner) {
+    let q = `INSERT INTO friends (sender_id, recipient_id) VALUES ($1, $2) RETURNING * ;`;
+    let params = [viewer, owner];
+    return db.query(q, params);
+};
+
+//handle "Accept Friend Request"
+exports.acceptFriend = function(tableId, bool) {
+    let q = `UPDATE friends SET accepted = $2 WHERE id = $1 RETURNING * ;`;
+    let params = [tableId, bool];
+    return db.query(q, params);
+};
+
+//handle "Unfriend" or "Cancel Friend Request"
+exports.delete = function(tableId) {
+    let q = `Delete FROM friends WHERE id = $1; `;
+    let params = [tableId];
+    return db.query(q, params);
+};

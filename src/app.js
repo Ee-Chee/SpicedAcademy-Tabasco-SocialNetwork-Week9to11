@@ -15,6 +15,7 @@ export default class App extends React.Component {
     }
     //life cycle - during mounted. Runs before render()
     componentDidMount() {
+        console.log("lets see if page reloading", new Date());
         axios.get("/user").then(resp => {
             // console.log("see ", resp.data);
             this.setState({
@@ -115,7 +116,7 @@ export default class App extends React.Component {
                                 );
                             }}
                         />
-                        <Route path="/user/:id" component={OtherProfile} />
+                        <Route path="/user/:idnum" component={OtherProfile} />
                         {this.state.uploaderVisible && (
                             <Uploader
                                 handleImage={url =>

@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "./axios";
+import Friendship from "./friendship";
 
 export default class OtherProfile extends React.Component {
     constructor(props) {
@@ -9,7 +10,7 @@ export default class OtherProfile extends React.Component {
 
     componentDidMount() {
         // console.log(this.props); //when /:X triggered, the props get passed match, location, history properties
-        const id = this.props.match.params.id;
+        const id = this.props.match.params.idnum;
         axios
             .get("/api/user/" + id)
             .then(resp => {
@@ -20,6 +21,26 @@ export default class OtherProfile extends React.Component {
                     //else is used to prevent error when redirect back to "/". 0 properties not defined error
                     //location.replace isnt used here because it reloads the page while history.push() doesnt
                     // console.log(resp.data.rows[0]);
+                    //////////////////////////////////////////////////
+                    // var oldUrl = location.pathname;
+                    // let temp = this;
+                    // loop();
+                    // function loop() {
+                    //     history.pushState({}, "", location.pathname);
+                    //     history.back();
+                    //     window.onpopstate = () => {
+                    //         // console.log("e", e);
+                    //         if (oldUrl == location.pathname) {
+                    //             loop();
+                    //         } else {
+                    //             console.log("hi");
+                    //             temp.props.history.push("/user/200");
+                    //             temp.componentDidMount();
+                    //         }
+                    //     };
+                    // }
+                    ////////////////////////////////////////
+
                     this.setState({
                         ln: resp.data.rows[0].lastn,
                         fn: resp.data.rows[0].firstn,
@@ -49,18 +70,21 @@ export default class OtherProfile extends React.Component {
             );
         } else {
             return (
-                <div className="profile">
-                    <img
-                        src={this.state.avatarurl || "/default-user.png"}
-                        height={200}
-                        width={200}
-                    />
-                    <div className="profile-details">
-                        <div>
-                            {this.state.fn} {this.state.ln}
+                <div>
+                    <div className="profile">
+                        <img
+                            src={this.state.avatarurl || "/default-user.png"}
+                            height={200}
+                            width={200}
+                        />
+                        <div className="profile-details">
+                            <div>
+                                {this.state.fn} {this.state.ln}
+                            </div>
+                            {this.state.biodata}
                         </div>
-                        {this.state.biodata}
                     </div>
+                    <Friendship profileOwnerId={this.state.id} />
                 </div>
             );
         }

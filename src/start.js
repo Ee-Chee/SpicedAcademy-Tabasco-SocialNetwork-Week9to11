@@ -9,9 +9,9 @@ if (location.pathname == "/welcome") {
     // console.log(location.pathname);
     elem = <Welcome />;
 } else {
-    if (location.pathname != "/") {
-        window.history.pushState({}, null, "/");
-    } //a browser way to change url without reloading. To handle user input of random strings 8082/hfjkdhjfkds
+    // if (location.pathname != "/") {
+    //     window.history.pushState({}, null, "/");
+    // } //a browser way to change url without reloading. To handle user input of random strings 8082/hfjkdhjfkds
     elem = <App />;
 }
 
