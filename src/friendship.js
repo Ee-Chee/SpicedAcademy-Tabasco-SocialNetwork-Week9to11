@@ -80,6 +80,10 @@ export default class Friendship extends React.Component {
                         friendshipId: null
                     });
                 }
+                //////For Friend component. Redux state change
+                if (this.props.handleError) {
+                    this.props.makeReduxStateChange(true);
+                }
             })
             .catch(err => {
                 console.log(err);
@@ -102,6 +106,10 @@ export default class Friendship extends React.Component {
                         cancelRequestFlag: false,
                         acceptRequestFlag: false
                     });
+                }
+
+                if (this.props.handleError) {
+                    this.props.makeReduxStateChange(true);
                 }
             })
             .catch(err => {

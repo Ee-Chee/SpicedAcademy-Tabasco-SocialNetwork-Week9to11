@@ -5,7 +5,8 @@ import Uploader from "./uploader";
 import Profile from "./profile";
 import BioEditor from "./bioeditor";
 import OtherProfile from "./otherprofile";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route, Link } from "react-router-dom";
+import Friends from "./friends";
 
 export default class App extends React.Component {
     constructor(props) {
@@ -15,7 +16,6 @@ export default class App extends React.Component {
     }
     //life cycle - during mounted. Runs before render()
     componentDidMount() {
-        console.log("lets see if page reloading", new Date());
         axios.get("/user").then(resp => {
             // console.log("see ", resp.data);
             this.setState({
@@ -57,6 +57,7 @@ export default class App extends React.Component {
                             <h1>
                                 Welcome, you are number #{this.state.id} user
                             </h1>
+                            <Link to="/friends">My friends</Link>
                             <div>
                                 <Avatar
                                     imageUrl={this.state.avatarurl}
@@ -117,6 +118,7 @@ export default class App extends React.Component {
                             }}
                         />
                         <Route path="/user/:idnum" component={OtherProfile} />
+                        <Route path="/friends" component={Friends} />
                         {this.state.uploaderVisible && (
                             <Uploader
                                 handleImage={url =>

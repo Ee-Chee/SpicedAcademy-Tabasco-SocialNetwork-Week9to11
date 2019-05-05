@@ -21,26 +21,6 @@ export default class OtherProfile extends React.Component {
                     //else is used to prevent error when redirect back to "/". 0 properties not defined error
                     //location.replace isnt used here because it reloads the page while history.push() doesnt
                     // console.log(resp.data.rows[0]);
-                    //////////////////////////////////////////////////
-                    // var oldUrl = location.pathname;
-                    // let temp = this;
-                    // loop();
-                    // function loop() {
-                    //     history.pushState({}, "", location.pathname);
-                    //     history.back();
-                    //     window.onpopstate = () => {
-                    //         // console.log("e", e);
-                    //         if (oldUrl == location.pathname) {
-                    //             loop();
-                    //         } else {
-                    //             console.log("hi");
-                    //             temp.props.history.push("/user/200");
-                    //             temp.componentDidMount();
-                    //         }
-                    //     };
-                    // }
-                    ////////////////////////////////////////
-
                     this.setState({
                         ln: resp.data.rows[0].lastn,
                         fn: resp.data.rows[0].firstn,

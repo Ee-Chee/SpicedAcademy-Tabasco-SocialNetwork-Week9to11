@@ -216,6 +216,17 @@ app.post("/handleFriendshipStatus", async (req, res) => {
     }
 });
 
+app.get("/api/friends", async (req, res) => {
+    // console.log(req.session.userId); //viewer
+    // console.log(req.params.id); //owner
+    try {
+        const data = await dB.getFriends(req.session.userId);
+        // console.log(data.rows);
+        res.json(data.rows);
+    } catch (err) {
+        console.log("Err caught: ", err);
+    }
+});
 ///////////////////////////checking log-in status
 app.get("/welcome", (req, res) => {
     if (req.session.userId) {
