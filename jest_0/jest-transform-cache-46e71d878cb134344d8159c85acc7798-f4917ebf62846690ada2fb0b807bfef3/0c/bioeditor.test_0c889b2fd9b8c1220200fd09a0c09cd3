@@ -1,0 +1,17 @@
+19f3fae61adf028d10bb36446d173e4b
+"use strict";
+
+var _react = _interopRequireDefault(require("react"));
+
+var _enzyme = require("enzyme");
+
+var _bioeditor = _interopRequireDefault(require("./bioeditor"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+test("Add is rendered when no bio is passed", function () {
+  var wrapper = (0, _enzyme.shallow)(_react["default"].createElement(_bioeditor["default"], null));
+  expect(wrapper.find("button").length).toBe(1);
+  expect(wrapper.contains(_react["default"].createElement("button", null, "Add your bio now!"))).toBe(true);
+});
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImJpb2VkaXRvci50ZXN0LmpzIl0sIm5hbWVzIjpbInRlc3QiLCJ3cmFwcGVyIiwiZXhwZWN0IiwiZmluZCIsImxlbmd0aCIsInRvQmUiLCJjb250YWlucyJdLCJtYXBwaW5ncyI6Ijs7QUFBQTs7QUFDQTs7QUFDQTs7OztBQUVBQSxJQUFJLENBQUMsdUNBQUQsRUFBMEMsWUFBTTtBQUNoRCxNQUFNQyxPQUFPLEdBQUcscUJBQVEsZ0NBQUMscUJBQUQsT0FBUixDQUFoQjtBQUNBQyxFQUFBQSxNQUFNLENBQUNELE9BQU8sQ0FBQ0UsSUFBUixDQUFhLFFBQWIsRUFBdUJDLE1BQXhCLENBQU4sQ0FBc0NDLElBQXRDLENBQTJDLENBQTNDO0FBQ0FILEVBQUFBLE1BQU0sQ0FBQ0QsT0FBTyxDQUFDSyxRQUFSLENBQWlCLG9FQUFqQixDQUFELENBQU4sQ0FBNkRELElBQTdELENBQWtFLElBQWxFO0FBQ0gsQ0FKRyxDQUFKIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IFJlYWN0IGZyb20gXCJyZWFjdFwiO1xyXG5pbXBvcnQgeyBzaGFsbG93IH0gZnJvbSBcImVuenltZVwiO1xyXG5pbXBvcnQgQmlvRWRpdG9yIGZyb20gXCIuL2Jpb2VkaXRvclwiO1xyXG5cclxudGVzdChcIkFkZCBpcyByZW5kZXJlZCB3aGVuIG5vIGJpbyBpcyBwYXNzZWRcIiwgKCkgPT4ge1xyXG4gICAgY29uc3Qgd3JhcHBlciA9IHNoYWxsb3coPEJpb0VkaXRvciAvPik7XHJcbiAgICBleHBlY3Qod3JhcHBlci5maW5kKFwiYnV0dG9uXCIpLmxlbmd0aCkudG9CZSgxKTtcclxuICAgIGV4cGVjdCh3cmFwcGVyLmNvbnRhaW5zKDxidXR0b24+QWRkIHlvdXIgYmlvIG5vdyE8L2J1dHRvbj4pKS50b0JlKHRydWUpO1xyXG59KTtcclxuIl19

@@ -1,0 +1,15 @@
+34b37e4eb5fd3fb246e6594717a8e623
+"use strict";
+
+var _enzyme = _interopRequireDefault(require("enzyme"));
+
+var _enzymeAdapterReact = _interopRequireDefault(require("enzyme-adapter-react-16"));
+
+require("@babel/polyfill");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+_enzyme["default"].configure({
+  adapter: new _enzymeAdapterReact["default"]()
+});
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImplc3QuanMiXSwibmFtZXMiOlsiRW56eW1lIiwiY29uZmlndXJlIiwiYWRhcHRlciIsIkFkYXB0ZXIiXSwibWFwcGluZ3MiOiI7O0FBQUE7O0FBQ0E7O0FBQ0E7Ozs7QUFFQUEsbUJBQU9DLFNBQVAsQ0FBaUI7QUFBRUMsRUFBQUEsT0FBTyxFQUFFLElBQUlDLDhCQUFKO0FBQVgsQ0FBakIiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgRW56eW1lIGZyb20gXCJlbnp5bWVcIjtcbmltcG9ydCBBZGFwdGVyIGZyb20gXCJlbnp5bWUtYWRhcHRlci1yZWFjdC0xNlwiO1xuaW1wb3J0IFwiQGJhYmVsL3BvbHlmaWxsXCI7XG5cbkVuenltZS5jb25maWd1cmUoeyBhZGFwdGVyOiBuZXcgQWRhcHRlcigpIH0pO1xuIl19

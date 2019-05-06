@@ -10,8 +10,8 @@ export default class BioEditor extends React.Component {
     }
 
     submit() {
-        axios.post("/bioinput", { bio: this.biotext }).then(resp => {
-            // console.log("return", resp.data.rows[0].biotext);
+        return axios.post("/bioinput", { bio: this.biotext }).then(resp => {
+            // console.log("return", resp.data.rows[0]);
             if (!resp.data.rows[0].biotext) {
                 this.setState({ added: false });
             } //if no biodata, restart again because no data added

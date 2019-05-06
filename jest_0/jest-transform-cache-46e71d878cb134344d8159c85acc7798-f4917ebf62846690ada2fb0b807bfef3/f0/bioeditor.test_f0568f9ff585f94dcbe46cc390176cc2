@@ -1,0 +1,83 @@
+732fcdb9309e1870af4fb50e4f1484d0
+"use strict";
+
+jest.mock("./axios");
+
+var _react = _interopRequireDefault(require("react"));
+
+var _enzyme = require("enzyme");
+
+var _bioeditor = _interopRequireDefault(require("./bioeditor"));
+
+var _axios = _interopRequireDefault(require("./axios"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+test("Add is rendered when no bio is passed", function () {
+  var wrapper = (0, _enzyme.shallow)(_react["default"].createElement(_bioeditor["default"], null));
+  expect(wrapper.find("button").length).toBe(1);
+  expect(wrapper.find("button").text()).toEqual("Add your bio now!"); //.length here refers to how many button elements available
+}); //test.only(...) is used to run for a particular selected test of this file
+
+test("Edit is rendered when a bio text is passed", function () {
+  var wrapper = (0, _enzyme.shallow)(_react["default"].createElement(_bioeditor["default"], {
+    bioData: "some random text for bio testing"
+  }));
+  expect(wrapper.find("button").length).toBe(1);
+  expect(wrapper.find("button").text()).toEqual("Edit");
+}); //"Edit" string is case sensitive
+
+test("clicking Add or Edit button causes textarea and Save button to be rendered", function () {
+  var wrapper = (0, _enzyme.shallow)(_react["default"].createElement(_bioeditor["default"], {
+    bioData: "some random text for bio testing"
+  }));
+  wrapper.find("button").simulate("click");
+  expect(wrapper.find("textarea").length).toBe(1);
+  expect(wrapper.find("button").text()).toEqual("Save");
+  var wrapper2 = (0, _enzyme.shallow)(_react["default"].createElement(_bioeditor["default"], null));
+  wrapper2.find("button").simulate("click");
+  expect(wrapper2.find("textarea").length).toBe(1);
+  expect(wrapper2.find("button").text()).toEqual("Save");
+}); ///////////////////////////////////////////////4th and 5th test
+
+test.only("When axios request is successful, the function that was passed as a prop to the component gets called.",
+/*#__PURE__*/
+_asyncToGenerator(
+/*#__PURE__*/
+regeneratorRuntime.mark(function _callee() {
+  var mockFn, wrapper;
+  return regeneratorRuntime.wrap(function _callee$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          _axios["default"].post.mockResolvedValue({
+            data: {
+              rows: [{
+                biotext: "random text"
+              }]
+            }
+          });
+
+          mockFn = jest.fn();
+          wrapper = (0, _enzyme.shallow)(_react["default"].createElement(_bioeditor["default"], {
+            bioHandler: mockFn
+          }));
+          _context.next = 5;
+          return wrapper.instance().submit();
+
+        case 5:
+          expect(mockFn.mock.calls.length).toBe(1);
+
+        case 6:
+        case "end":
+          return _context.stop();
+      }
+    }
+  }, _callee);
+}))); //Very often you want to write tests to confirm that your code is causing functions to be called at the right time and in the right way.
+//For example, you might wish to confirm that an event handler is actually being called whenever the event occurs or that a callback is called with the correct arguments.
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImJpb2VkaXRvci50ZXN0LmpzIl0sIm5hbWVzIjpbImplc3QiLCJtb2NrIiwidGVzdCIsIndyYXBwZXIiLCJleHBlY3QiLCJmaW5kIiwibGVuZ3RoIiwidG9CZSIsInRleHQiLCJ0b0VxdWFsIiwic2ltdWxhdGUiLCJ3cmFwcGVyMiIsIm9ubHkiLCJheGlvcyIsInBvc3QiLCJtb2NrUmVzb2x2ZWRWYWx1ZSIsImRhdGEiLCJyb3dzIiwiYmlvdGV4dCIsIm1vY2tGbiIsImZuIiwiaW5zdGFuY2UiLCJzdWJtaXQiLCJjYWxscyJdLCJtYXBwaW5ncyI6Ijs7QUFLQUEsSUFBSSxDQUFDQyxJQUFMLENBQVUsU0FBVjs7QUFMQTs7QUFDQTs7QUFDQTs7QUFDQTs7Ozs7Ozs7QUFJQUMsSUFBSSxDQUFDLHVDQUFELEVBQTBDLFlBQU07QUFDaEQsTUFBTUMsT0FBTyxHQUFHLHFCQUFRLGdDQUFDLHFCQUFELE9BQVIsQ0FBaEI7QUFDQUMsRUFBQUEsTUFBTSxDQUFDRCxPQUFPLENBQUNFLElBQVIsQ0FBYSxRQUFiLEVBQXVCQyxNQUF4QixDQUFOLENBQXNDQyxJQUF0QyxDQUEyQyxDQUEzQztBQUNBSCxFQUFBQSxNQUFNLENBQUNELE9BQU8sQ0FBQ0UsSUFBUixDQUFhLFFBQWIsRUFBdUJHLElBQXZCLEVBQUQsQ0FBTixDQUFzQ0MsT0FBdEMsQ0FBOEMsbUJBQTlDLEVBSGdELENBSWhEO0FBQ0gsQ0FMRyxDQUFKLEMsQ0FPQTs7QUFDQVAsSUFBSSxDQUFDLDRDQUFELEVBQStDLFlBQU07QUFDckQsTUFBTUMsT0FBTyxHQUFHLHFCQUNaLGdDQUFDLHFCQUFEO0FBQVcsSUFBQSxPQUFPLEVBQUM7QUFBbkIsSUFEWSxDQUFoQjtBQUdBQyxFQUFBQSxNQUFNLENBQUNELE9BQU8sQ0FBQ0UsSUFBUixDQUFhLFFBQWIsRUFBdUJDLE1BQXhCLENBQU4sQ0FBc0NDLElBQXRDLENBQTJDLENBQTNDO0FBQ0FILEVBQUFBLE1BQU0sQ0FBQ0QsT0FBTyxDQUFDRSxJQUFSLENBQWEsUUFBYixFQUF1QkcsSUFBdkIsRUFBRCxDQUFOLENBQXNDQyxPQUF0QyxDQUE4QyxNQUE5QztBQUNILENBTkcsQ0FBSixDLENBT0E7O0FBRUFQLElBQUksQ0FBQyw0RUFBRCxFQUErRSxZQUFNO0FBQ3JGLE1BQU1DLE9BQU8sR0FBRyxxQkFDWixnQ0FBQyxxQkFBRDtBQUFXLElBQUEsT0FBTyxFQUFDO0FBQW5CLElBRFksQ0FBaEI7QUFHQUEsRUFBQUEsT0FBTyxDQUFDRSxJQUFSLENBQWEsUUFBYixFQUF1QkssUUFBdkIsQ0FBZ0MsT0FBaEM7QUFDQU4sRUFBQUEsTUFBTSxDQUFDRCxPQUFPLENBQUNFLElBQVIsQ0FBYSxVQUFiLEVBQXlCQyxNQUExQixDQUFOLENBQXdDQyxJQUF4QyxDQUE2QyxDQUE3QztBQUNBSCxFQUFBQSxNQUFNLENBQUNELE9BQU8sQ0FBQ0UsSUFBUixDQUFhLFFBQWIsRUFBdUJHLElBQXZCLEVBQUQsQ0FBTixDQUFzQ0MsT0FBdEMsQ0FBOEMsTUFBOUM7QUFFQSxNQUFNRSxRQUFRLEdBQUcscUJBQVEsZ0NBQUMscUJBQUQsT0FBUixDQUFqQjtBQUNBQSxFQUFBQSxRQUFRLENBQUNOLElBQVQsQ0FBYyxRQUFkLEVBQXdCSyxRQUF4QixDQUFpQyxPQUFqQztBQUNBTixFQUFBQSxNQUFNLENBQUNPLFFBQVEsQ0FBQ04sSUFBVCxDQUFjLFVBQWQsRUFBMEJDLE1BQTNCLENBQU4sQ0FBeUNDLElBQXpDLENBQThDLENBQTlDO0FBQ0FILEVBQUFBLE1BQU0sQ0FBQ08sUUFBUSxDQUFDTixJQUFULENBQWMsUUFBZCxFQUF3QkcsSUFBeEIsRUFBRCxDQUFOLENBQXVDQyxPQUF2QyxDQUErQyxNQUEvQztBQUNILENBWkcsQ0FBSixDLENBY0E7O0FBQ0FQLElBQUksQ0FBQ1UsSUFBTCxDQUFVLHdHQUFWO0FBQUE7QUFBQTtBQUFBO0FBQUEsd0JBQW9IO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUNoSEMsNEJBQU1DLElBQU4sQ0FBV0MsaUJBQVgsQ0FBNkI7QUFDekJDLFlBQUFBLElBQUksRUFBRTtBQUNGQyxjQUFBQSxJQUFJLEVBQUUsQ0FBQztBQUFFQyxnQkFBQUEsT0FBTyxFQUFFO0FBQVgsZUFBRDtBQURKO0FBRG1CLFdBQTdCOztBQUtNQyxVQUFBQSxNQU4wRyxHQU1qR25CLElBQUksQ0FBQ29CLEVBQUwsRUFOaUc7QUFPMUdqQixVQUFBQSxPQVAwRyxHQU9oRyxxQkFBUSxnQ0FBQyxxQkFBRDtBQUFXLFlBQUEsVUFBVSxFQUFFZ0I7QUFBdkIsWUFBUixDQVBnRztBQUFBO0FBQUEsaUJBUzFHaEIsT0FBTyxDQUFDa0IsUUFBUixHQUFtQkMsTUFBbkIsRUFUMEc7O0FBQUE7QUFXaEhsQixVQUFBQSxNQUFNLENBQUNlLE1BQU0sQ0FBQ2xCLElBQVAsQ0FBWXNCLEtBQVosQ0FBa0JqQixNQUFuQixDQUFOLENBQWlDQyxJQUFqQyxDQUFzQyxDQUF0Qzs7QUFYZ0g7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUEsQ0FBcEgsSSxDQWNBO0FBQ0EiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgUmVhY3QgZnJvbSBcInJlYWN0XCI7XHJcbmltcG9ydCB7IHNoYWxsb3cgfSBmcm9tIFwiZW56eW1lXCI7XHJcbmltcG9ydCBCaW9FZGl0b3IgZnJvbSBcIi4vYmlvZWRpdG9yXCI7XHJcbmltcG9ydCBheGlvcyBmcm9tIFwiLi9heGlvc1wiO1xyXG5cclxuamVzdC5tb2NrKFwiLi9heGlvc1wiKTtcclxuXHJcbnRlc3QoXCJBZGQgaXMgcmVuZGVyZWQgd2hlbiBubyBiaW8gaXMgcGFzc2VkXCIsICgpID0+IHtcclxuICAgIGNvbnN0IHdyYXBwZXIgPSBzaGFsbG93KDxCaW9FZGl0b3IgLz4pO1xyXG4gICAgZXhwZWN0KHdyYXBwZXIuZmluZChcImJ1dHRvblwiKS5sZW5ndGgpLnRvQmUoMSk7XHJcbiAgICBleHBlY3Qod3JhcHBlci5maW5kKFwiYnV0dG9uXCIpLnRleHQoKSkudG9FcXVhbChcIkFkZCB5b3VyIGJpbyBub3chXCIpO1xyXG4gICAgLy8ubGVuZ3RoIGhlcmUgcmVmZXJzIHRvIGhvdyBtYW55IGJ1dHRvbiBlbGVtZW50cyBhdmFpbGFibGVcclxufSk7XHJcblxyXG4vL3Rlc3Qub25seSguLi4pIGlzIHVzZWQgdG8gcnVuIGZvciBhIHBhcnRpY3VsYXIgc2VsZWN0ZWQgdGVzdCBvZiB0aGlzIGZpbGVcclxudGVzdChcIkVkaXQgaXMgcmVuZGVyZWQgd2hlbiBhIGJpbyB0ZXh0IGlzIHBhc3NlZFwiLCAoKSA9PiB7XHJcbiAgICBjb25zdCB3cmFwcGVyID0gc2hhbGxvdyhcclxuICAgICAgICA8QmlvRWRpdG9yIGJpb0RhdGE9XCJzb21lIHJhbmRvbSB0ZXh0IGZvciBiaW8gdGVzdGluZ1wiIC8+XHJcbiAgICApO1xyXG4gICAgZXhwZWN0KHdyYXBwZXIuZmluZChcImJ1dHRvblwiKS5sZW5ndGgpLnRvQmUoMSk7XHJcbiAgICBleHBlY3Qod3JhcHBlci5maW5kKFwiYnV0dG9uXCIpLnRleHQoKSkudG9FcXVhbChcIkVkaXRcIik7XHJcbn0pO1xyXG4vL1wiRWRpdFwiIHN0cmluZyBpcyBjYXNlIHNlbnNpdGl2ZVxyXG5cclxudGVzdChcImNsaWNraW5nIEFkZCBvciBFZGl0IGJ1dHRvbiBjYXVzZXMgdGV4dGFyZWEgYW5kIFNhdmUgYnV0dG9uIHRvIGJlIHJlbmRlcmVkXCIsICgpID0+IHtcclxuICAgIGNvbnN0IHdyYXBwZXIgPSBzaGFsbG93KFxyXG4gICAgICAgIDxCaW9FZGl0b3IgYmlvRGF0YT1cInNvbWUgcmFuZG9tIHRleHQgZm9yIGJpbyB0ZXN0aW5nXCIgLz5cclxuICAgICk7XHJcbiAgICB3cmFwcGVyLmZpbmQoXCJidXR0b25cIikuc2ltdWxhdGUoXCJjbGlja1wiKTtcclxuICAgIGV4cGVjdCh3cmFwcGVyLmZpbmQoXCJ0ZXh0YXJlYVwiKS5sZW5ndGgpLnRvQmUoMSk7XHJcbiAgICBleHBlY3Qod3JhcHBlci5maW5kKFwiYnV0dG9uXCIpLnRleHQoKSkudG9FcXVhbChcIlNhdmVcIik7XHJcblxyXG4gICAgY29uc3Qgd3JhcHBlcjIgPSBzaGFsbG93KDxCaW9FZGl0b3IgLz4pO1xyXG4gICAgd3JhcHBlcjIuZmluZChcImJ1dHRvblwiKS5zaW11bGF0ZShcImNsaWNrXCIpO1xyXG4gICAgZXhwZWN0KHdyYXBwZXIyLmZpbmQoXCJ0ZXh0YXJlYVwiKS5sZW5ndGgpLnRvQmUoMSk7XHJcbiAgICBleHBlY3Qod3JhcHBlcjIuZmluZChcImJ1dHRvblwiKS50ZXh0KCkpLnRvRXF1YWwoXCJTYXZlXCIpO1xyXG59KTtcclxuXHJcbi8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vNHRoIGFuZCA1dGggdGVzdFxyXG50ZXN0Lm9ubHkoXCJXaGVuIGF4aW9zIHJlcXVlc3QgaXMgc3VjY2Vzc2Z1bCwgdGhlIGZ1bmN0aW9uIHRoYXQgd2FzIHBhc3NlZCBhcyBhIHByb3AgdG8gdGhlIGNvbXBvbmVudCBnZXRzIGNhbGxlZC5cIiwgYXN5bmMgKCkgPT4ge1xyXG4gICAgYXhpb3MucG9zdC5tb2NrUmVzb2x2ZWRWYWx1ZSh7XHJcbiAgICAgICAgZGF0YToge1xyXG4gICAgICAgICAgICByb3dzOiBbeyBiaW90ZXh0OiBcInJhbmRvbSB0ZXh0XCIgfV1cclxuICAgICAgICB9XHJcbiAgICB9KTtcclxuICAgIGNvbnN0IG1vY2tGbiA9IGplc3QuZm4oKTtcclxuICAgIGNvbnN0IHdyYXBwZXIgPSBzaGFsbG93KDxCaW9FZGl0b3IgYmlvSGFuZGxlcj17bW9ja0ZufSAvPik7XHJcblxyXG4gICAgYXdhaXQgd3JhcHBlci5pbnN0YW5jZSgpLnN1Ym1pdCgpO1xyXG5cclxuICAgIGV4cGVjdChtb2NrRm4ubW9jay5jYWxscy5sZW5ndGgpLnRvQmUoMSk7XHJcbn0pO1xyXG5cclxuLy9WZXJ5IG9mdGVuIHlvdSB3YW50IHRvIHdyaXRlIHRlc3RzIHRvIGNvbmZpcm0gdGhhdCB5b3VyIGNvZGUgaXMgY2F1c2luZyBmdW5jdGlvbnMgdG8gYmUgY2FsbGVkIGF0IHRoZSByaWdodCB0aW1lIGFuZCBpbiB0aGUgcmlnaHQgd2F5LlxyXG4vL0ZvciBleGFtcGxlLCB5b3UgbWlnaHQgd2lzaCB0byBjb25maXJtIHRoYXQgYW4gZXZlbnQgaGFuZGxlciBpcyBhY3R1YWxseSBiZWluZyBjYWxsZWQgd2hlbmV2ZXIgdGhlIGV2ZW50IG9jY3VycyBvciB0aGF0IGEgY2FsbGJhY2sgaXMgY2FsbGVkIHdpdGggdGhlIGNvcnJlY3QgYXJndW1lbnRzLlxyXG4iXX0=

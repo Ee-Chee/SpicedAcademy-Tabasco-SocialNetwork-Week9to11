@@ -1,0 +1,1 @@
+{"version":3,"sources":["jest.js"],"names":["Enzyme","configure","adapter","Adapter"],"mappings":";;AAAA;;AACA;;AACA;;;;AAEAA,mBAAOC,SAAP,CAAiB;AAAEC,EAAAA,OAAO,EAAE,IAAIC,8BAAJ;AAAX,CAAjB","sourcesContent":["import Enzyme from \"enzyme\";\nimport Adapter from \"enzyme-adapter-react-16\";\nimport \"@babel/polyfill\";\n\nEnzyme.configure({ adapter: new Adapter() });\n"]}

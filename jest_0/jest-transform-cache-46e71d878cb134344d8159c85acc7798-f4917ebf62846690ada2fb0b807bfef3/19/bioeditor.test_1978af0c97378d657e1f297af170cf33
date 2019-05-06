@@ -1,0 +1,31 @@
+e77aab04e0eb1113b6072cb928121671
+"use strict";
+
+var _react = _interopRequireDefault(require("react"));
+
+var _enzyme = require("enzyme");
+
+var _bioeditor = _interopRequireDefault(require("./bioeditor"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+test("Add is rendered when no bio is passed", function () {
+  var wrapper = (0, _enzyme.shallow)(_react["default"].createElement(_bioeditor["default"], null));
+  expect(wrapper.find("button").length).toBe(1); // expect(
+  //     wrapper.contains(
+  //         <button
+  //             onClick={() => {
+  //                 this.setState({
+  //                     toggleBioTextField: true,
+  //                     added: true
+  //                 });
+  //             }}
+  //         >
+  //             Add your bio now!
+  //         </button>
+  //     )
+  // ).toBe(true);
+
+  expect(wrapper.find("button").text()).toEqual("Add your bio now!");
+});
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImJpb2VkaXRvci50ZXN0LmpzIl0sIm5hbWVzIjpbInRlc3QiLCJ3cmFwcGVyIiwiZXhwZWN0IiwiZmluZCIsImxlbmd0aCIsInRvQmUiLCJ0ZXh0IiwidG9FcXVhbCJdLCJtYXBwaW5ncyI6Ijs7QUFBQTs7QUFDQTs7QUFDQTs7OztBQUVBQSxJQUFJLENBQUMsdUNBQUQsRUFBMEMsWUFBTTtBQUNoRCxNQUFNQyxPQUFPLEdBQUcscUJBQVEsZ0NBQUMscUJBQUQsT0FBUixDQUFoQjtBQUNBQyxFQUFBQSxNQUFNLENBQUNELE9BQU8sQ0FBQ0UsSUFBUixDQUFhLFFBQWIsRUFBdUJDLE1BQXhCLENBQU4sQ0FBc0NDLElBQXRDLENBQTJDLENBQTNDLEVBRmdELENBR2hEO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7O0FBQ0FILEVBQUFBLE1BQU0sQ0FBQ0QsT0FBTyxDQUFDRSxJQUFSLENBQWEsUUFBYixFQUF1QkcsSUFBdkIsRUFBRCxDQUFOLENBQXNDQyxPQUF0QyxDQUE4QyxtQkFBOUM7QUFDSCxDQWxCRyxDQUFKIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IFJlYWN0IGZyb20gXCJyZWFjdFwiO1xyXG5pbXBvcnQgeyBzaGFsbG93IH0gZnJvbSBcImVuenltZVwiO1xyXG5pbXBvcnQgQmlvRWRpdG9yIGZyb20gXCIuL2Jpb2VkaXRvclwiO1xyXG5cclxudGVzdChcIkFkZCBpcyByZW5kZXJlZCB3aGVuIG5vIGJpbyBpcyBwYXNzZWRcIiwgKCkgPT4ge1xyXG4gICAgY29uc3Qgd3JhcHBlciA9IHNoYWxsb3coPEJpb0VkaXRvciAvPik7XHJcbiAgICBleHBlY3Qod3JhcHBlci5maW5kKFwiYnV0dG9uXCIpLmxlbmd0aCkudG9CZSgxKTtcclxuICAgIC8vIGV4cGVjdChcclxuICAgIC8vICAgICB3cmFwcGVyLmNvbnRhaW5zKFxyXG4gICAgLy8gICAgICAgICA8YnV0dG9uXHJcbiAgICAvLyAgICAgICAgICAgICBvbkNsaWNrPXsoKSA9PiB7XHJcbiAgICAvLyAgICAgICAgICAgICAgICAgdGhpcy5zZXRTdGF0ZSh7XHJcbiAgICAvLyAgICAgICAgICAgICAgICAgICAgIHRvZ2dsZUJpb1RleHRGaWVsZDogdHJ1ZSxcclxuICAgIC8vICAgICAgICAgICAgICAgICAgICAgYWRkZWQ6IHRydWVcclxuICAgIC8vICAgICAgICAgICAgICAgICB9KTtcclxuICAgIC8vICAgICAgICAgICAgIH19XHJcbiAgICAvLyAgICAgICAgID5cclxuICAgIC8vICAgICAgICAgICAgIEFkZCB5b3VyIGJpbyBub3chXHJcbiAgICAvLyAgICAgICAgIDwvYnV0dG9uPlxyXG4gICAgLy8gICAgIClcclxuICAgIC8vICkudG9CZSh0cnVlKTtcclxuICAgIGV4cGVjdCh3cmFwcGVyLmZpbmQoXCJidXR0b25cIikudGV4dCgpKS50b0VxdWFsKFwiQWRkIHlvdXIgYmlvIG5vdyFcIik7XHJcbn0pO1xyXG4iXX0=

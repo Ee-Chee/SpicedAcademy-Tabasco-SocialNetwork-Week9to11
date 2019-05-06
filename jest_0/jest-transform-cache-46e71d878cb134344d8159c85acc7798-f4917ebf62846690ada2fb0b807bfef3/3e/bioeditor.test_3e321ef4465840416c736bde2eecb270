@@ -1,0 +1,51 @@
+4b4c7af792e903c0605db1780bb12b86
+"use strict";
+
+var _react = _interopRequireDefault(require("react"));
+
+var _enzyme = require("enzyme");
+
+var _bioeditor = _interopRequireDefault(require("./bioeditor"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+test("Add is rendered when no bio is passed", function () {
+  var wrapper = (0, _enzyme.shallow)(_react["default"].createElement(_bioeditor["default"], null));
+  expect(wrapper.find("button").length).toBe(1); // expect(
+  //     wrapper.contains(
+  //         <button
+  //             onClick={() => {
+  //                 this.setState({
+  //                     toggleBioTextField: true,
+  //                     added: true
+  //                 });
+  //             }}
+  //         >
+  //             Add your bio now!
+  //         </button>
+  //     )
+  // ).toBe(true);
+
+  expect(wrapper.find("button").text()).toEqual("Add your bio now!");
+}); //test.only(...) is used to run for a particular selected test of this file
+
+test("Edit is rendered when a bio text is passed", function () {
+  var wrapper = (0, _enzyme.shallow)(_react["default"].createElement(_bioeditor["default"], {
+    bioData: "some random text for bio testing"
+  }));
+  expect(wrapper.find("button").length).toBe(1);
+  expect(wrapper.find("button").text()).toEqual("Edit");
+}); //"Edit" string is case sensitive
+
+test.only("clicking Add or Edit button causes textarea and Save button to be rendered", function () {
+  var onClick = jest.fn();
+  var wrapper = (0, _enzyme.shallow)(_react["default"].createElement(_bioeditor["default"], {
+    bioData: "some random text for bio testing",
+    onClick: onClick
+  }));
+  wrapper.simulate("click");
+  console.log(onClick.mock.calls); // expect(onClick.mock.calls.length).toBe(5);
+  // expect(wrapper.find("button").length).toBe(1);
+  // expect(wrapper.find("button").text()).toEqual("Edit");
+});
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImJpb2VkaXRvci50ZXN0LmpzIl0sIm5hbWVzIjpbInRlc3QiLCJ3cmFwcGVyIiwiZXhwZWN0IiwiZmluZCIsImxlbmd0aCIsInRvQmUiLCJ0ZXh0IiwidG9FcXVhbCIsIm9ubHkiLCJvbkNsaWNrIiwiamVzdCIsImZuIiwic2ltdWxhdGUiLCJjb25zb2xlIiwibG9nIiwibW9jayIsImNhbGxzIl0sIm1hcHBpbmdzIjoiOztBQUFBOztBQUNBOztBQUNBOzs7O0FBRUFBLElBQUksQ0FBQyx1Q0FBRCxFQUEwQyxZQUFNO0FBQ2hELE1BQU1DLE9BQU8sR0FBRyxxQkFBUSxnQ0FBQyxxQkFBRCxPQUFSLENBQWhCO0FBQ0FDLEVBQUFBLE1BQU0sQ0FBQ0QsT0FBTyxDQUFDRSxJQUFSLENBQWEsUUFBYixFQUF1QkMsTUFBeEIsQ0FBTixDQUFzQ0MsSUFBdEMsQ0FBMkMsQ0FBM0MsRUFGZ0QsQ0FHaEQ7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTs7QUFDQUgsRUFBQUEsTUFBTSxDQUFDRCxPQUFPLENBQUNFLElBQVIsQ0FBYSxRQUFiLEVBQXVCRyxJQUF2QixFQUFELENBQU4sQ0FBc0NDLE9BQXRDLENBQThDLG1CQUE5QztBQUNILENBbEJHLENBQUosQyxDQW9CQTs7QUFDQVAsSUFBSSxDQUFDLDRDQUFELEVBQStDLFlBQU07QUFDckQsTUFBTUMsT0FBTyxHQUFHLHFCQUNaLGdDQUFDLHFCQUFEO0FBQVcsSUFBQSxPQUFPLEVBQUM7QUFBbkIsSUFEWSxDQUFoQjtBQUdBQyxFQUFBQSxNQUFNLENBQUNELE9BQU8sQ0FBQ0UsSUFBUixDQUFhLFFBQWIsRUFBdUJDLE1BQXhCLENBQU4sQ0FBc0NDLElBQXRDLENBQTJDLENBQTNDO0FBQ0FILEVBQUFBLE1BQU0sQ0FBQ0QsT0FBTyxDQUFDRSxJQUFSLENBQWEsUUFBYixFQUF1QkcsSUFBdkIsRUFBRCxDQUFOLENBQXNDQyxPQUF0QyxDQUE4QyxNQUE5QztBQUNILENBTkcsQ0FBSixDLENBT0E7O0FBRUFQLElBQUksQ0FBQ1EsSUFBTCxDQUFVLDRFQUFWLEVBQXdGLFlBQU07QUFDMUYsTUFBTUMsT0FBTyxHQUFHQyxJQUFJLENBQUNDLEVBQUwsRUFBaEI7QUFDQSxNQUFNVixPQUFPLEdBQUcscUJBQ1osZ0NBQUMscUJBQUQ7QUFDSSxJQUFBLE9BQU8sRUFBQyxrQ0FEWjtBQUVJLElBQUEsT0FBTyxFQUFFUTtBQUZiLElBRFksQ0FBaEI7QUFPQVIsRUFBQUEsT0FBTyxDQUFDVyxRQUFSLENBQWlCLE9BQWpCO0FBQ0FDLEVBQUFBLE9BQU8sQ0FBQ0MsR0FBUixDQUFZTCxPQUFPLENBQUNNLElBQVIsQ0FBYUMsS0FBekIsRUFWMEYsQ0FXMUY7QUFDQTtBQUNBO0FBQ0gsQ0FkRCIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBSZWFjdCBmcm9tIFwicmVhY3RcIjtcclxuaW1wb3J0IHsgc2hhbGxvdyB9IGZyb20gXCJlbnp5bWVcIjtcclxuaW1wb3J0IEJpb0VkaXRvciBmcm9tIFwiLi9iaW9lZGl0b3JcIjtcclxuXHJcbnRlc3QoXCJBZGQgaXMgcmVuZGVyZWQgd2hlbiBubyBiaW8gaXMgcGFzc2VkXCIsICgpID0+IHtcclxuICAgIGNvbnN0IHdyYXBwZXIgPSBzaGFsbG93KDxCaW9FZGl0b3IgLz4pO1xyXG4gICAgZXhwZWN0KHdyYXBwZXIuZmluZChcImJ1dHRvblwiKS5sZW5ndGgpLnRvQmUoMSk7XHJcbiAgICAvLyBleHBlY3QoXHJcbiAgICAvLyAgICAgd3JhcHBlci5jb250YWlucyhcclxuICAgIC8vICAgICAgICAgPGJ1dHRvblxyXG4gICAgLy8gICAgICAgICAgICAgb25DbGljaz17KCkgPT4ge1xyXG4gICAgLy8gICAgICAgICAgICAgICAgIHRoaXMuc2V0U3RhdGUoe1xyXG4gICAgLy8gICAgICAgICAgICAgICAgICAgICB0b2dnbGVCaW9UZXh0RmllbGQ6IHRydWUsXHJcbiAgICAvLyAgICAgICAgICAgICAgICAgICAgIGFkZGVkOiB0cnVlXHJcbiAgICAvLyAgICAgICAgICAgICAgICAgfSk7XHJcbiAgICAvLyAgICAgICAgICAgICB9fVxyXG4gICAgLy8gICAgICAgICA+XHJcbiAgICAvLyAgICAgICAgICAgICBBZGQgeW91ciBiaW8gbm93IVxyXG4gICAgLy8gICAgICAgICA8L2J1dHRvbj5cclxuICAgIC8vICAgICApXHJcbiAgICAvLyApLnRvQmUodHJ1ZSk7XHJcbiAgICBleHBlY3Qod3JhcHBlci5maW5kKFwiYnV0dG9uXCIpLnRleHQoKSkudG9FcXVhbChcIkFkZCB5b3VyIGJpbyBub3chXCIpO1xyXG59KTtcclxuXHJcbi8vdGVzdC5vbmx5KC4uLikgaXMgdXNlZCB0byBydW4gZm9yIGEgcGFydGljdWxhciBzZWxlY3RlZCB0ZXN0IG9mIHRoaXMgZmlsZVxyXG50ZXN0KFwiRWRpdCBpcyByZW5kZXJlZCB3aGVuIGEgYmlvIHRleHQgaXMgcGFzc2VkXCIsICgpID0+IHtcclxuICAgIGNvbnN0IHdyYXBwZXIgPSBzaGFsbG93KFxyXG4gICAgICAgIDxCaW9FZGl0b3IgYmlvRGF0YT1cInNvbWUgcmFuZG9tIHRleHQgZm9yIGJpbyB0ZXN0aW5nXCIgLz5cclxuICAgICk7XHJcbiAgICBleHBlY3Qod3JhcHBlci5maW5kKFwiYnV0dG9uXCIpLmxlbmd0aCkudG9CZSgxKTtcclxuICAgIGV4cGVjdCh3cmFwcGVyLmZpbmQoXCJidXR0b25cIikudGV4dCgpKS50b0VxdWFsKFwiRWRpdFwiKTtcclxufSk7XHJcbi8vXCJFZGl0XCIgc3RyaW5nIGlzIGNhc2Ugc2Vuc2l0aXZlXHJcblxyXG50ZXN0Lm9ubHkoXCJjbGlja2luZyBBZGQgb3IgRWRpdCBidXR0b24gY2F1c2VzIHRleHRhcmVhIGFuZCBTYXZlIGJ1dHRvbiB0byBiZSByZW5kZXJlZFwiLCAoKSA9PiB7XHJcbiAgICBjb25zdCBvbkNsaWNrID0gamVzdC5mbigpO1xyXG4gICAgY29uc3Qgd3JhcHBlciA9IHNoYWxsb3coXHJcbiAgICAgICAgPEJpb0VkaXRvclxyXG4gICAgICAgICAgICBiaW9EYXRhPVwic29tZSByYW5kb20gdGV4dCBmb3IgYmlvIHRlc3RpbmdcIlxyXG4gICAgICAgICAgICBvbkNsaWNrPXtvbkNsaWNrfVxyXG4gICAgICAgIC8+XHJcbiAgICApO1xyXG5cclxuICAgIHdyYXBwZXIuc2ltdWxhdGUoXCJjbGlja1wiKTtcclxuICAgIGNvbnNvbGUubG9nKG9uQ2xpY2subW9jay5jYWxscyk7XHJcbiAgICAvLyBleHBlY3Qob25DbGljay5tb2NrLmNhbGxzLmxlbmd0aCkudG9CZSg1KTtcclxuICAgIC8vIGV4cGVjdCh3cmFwcGVyLmZpbmQoXCJidXR0b25cIikubGVuZ3RoKS50b0JlKDEpO1xyXG4gICAgLy8gZXhwZWN0KHdyYXBwZXIuZmluZChcImJ1dHRvblwiKS50ZXh0KCkpLnRvRXF1YWwoXCJFZGl0XCIpO1xyXG59KTtcclxuIl19
