@@ -27,3 +27,6 @@ export default function(state = {}, action) {
 //Reducers must be a pure function. That means they can have no side effects. They can't change anything that they did not create themselves.
 //if state is undefined, it takes default which is {}
 //see object.assign example on MDN to understand how state data is replaced and updated
+//...state refers to other information in the state. Nothing related with current data. If you wanna update current data, check this:
+//...state, (ignore)
+//userrrs:state.userrrs................................from here

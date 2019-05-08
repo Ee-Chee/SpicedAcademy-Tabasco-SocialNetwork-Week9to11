@@ -127,4 +127,5 @@ const mapStateToProps = function(state) {
     };
 };
 
+//Provider passes store (with states info) to connect(). Connect() connects both side and changes the states info to props and pass props to Friends components
 export default connect(mapStateToProps)(Friends);

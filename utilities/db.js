@@ -78,3 +78,43 @@ exports.getFriends = function(viewer_id) {
 };
 //the registered.id, firstN, lastN, avatarUrl should belong to owners/your friends NOT viewer/current user/yourself
 //!!!important when the data is null, dont use equal sign accepted = null is wrong. Instead use IS NULL
+
+//////////////socket IO, do it without axios///////////////
+exports.getUsersByIds = function(arrayOfIds) {
+    const query = `SELECT id, firstN, lastN, avatarUrl FROM registered WHERE id = ANY($1)`;
+    return db.query(query, [arrayOfIds]);
+};
+//ANY function loops through the array and match the passed ID. If more than one same id existing, it ignores and takes the very first one it found
+
+exports.addComment = function(com, id) {
+    let q = `INSERT INTO comments (comment, user_id) VALUES ($1, $2) RETURNING comments.id ;`;
+    let params = [com, id];
+    return db.query(q, params);
+};
+
+exports.getTop10Comments = function() {
+    let q = `SELECT comment, created_at, comments.id AS commentId, registered.id AS userId, firstN, lastN, avatarUrl FROM registered
+    JOIN comments ON registered.id = comments.user_id ORDER BY comments.id DESC LIMIT 10;`;
+    return db.query(q);
+};
+
+exports.getComment = function(com_id) {
+    let q = `SELECT comment, created_at, comments.id AS commentId, registered.id AS userId, firstN, lastN, avatarUrl FROM registered
+    JOIN comments ON (registered.id = comments.user_id AND comments.id = $1);`;
+    return db.query(q, [com_id]);
+};
+
+//////////////////////////////////////////////////////////
+
+// INSERT INTO comments (comment, user_id) VALUES ('fhsdhkdsuf', 21);
+// INSERT INTO comments (comment, user_id) VALUES ('znb nmtrz', 1);
+// INSERT INTO comments (comment, user_id) VALUES ('fkjdsn', 1);
+// INSERT INTO comments (comment, user_id) VALUES ('dont give up bro', 1);
+// INSERT INTO comments (comment, user_id) VALUES ('i hate you', 21);
+// INSERT INTO comments (comment, user_id) VALUES ('world', 16);
+// INSERT INTO comments (comment, user_id) VALUES ('heelo', 16);
+// INSERT INTO comments (comment, user_id) VALUES ('duck', 21);
+// INSERT INTO comments (comment, user_id) VALUES ('disco', 1);
+// INSERT INTO comments (comment, user_id) VALUES ('chicken', 21);
+// INSERT INTO comments (comment, user_id) VALUES ('funky', 16);
+// INSERT INTO comments (comment, user_id) VALUES ('fdbgbhgfhnuk', 1);

@@ -43,9 +43,9 @@ test("When axios request is successful, the function that was passed as a prop t
             rows: [{ biotext: "random text" }]
         }
     });
-    const mockFn = jest.fn();
+    const mockFn = jest.fn(); //mock function must come before shallow
     const wrapper = shallow(<BioEditor bioHandler={mockFn} />);
-    await wrapper.instance().submit();
+    await wrapper.instance().submit(); //return is added to submit() OR NOT
     expect(mockFn.mock.calls.length).toBe(1);
 });
 

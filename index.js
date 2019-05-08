@@ -12,17 +12,31 @@ const uidSafe = require("uid-safe");
 const path = require("path");
 const s3 = require("./s3");
 const cf = require("./config.json");
-////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////socket IO
+const server = require("http").Server(app); //make a server not using express but native way
+const io = require("socket.io")(server, {
+    origins: "localhost:8082 yourfunkychickenapp.herokuapp.com:*"
+}); //Make the sockets true for only this port to prevent csrf-like attack
+////////////////////////////////////////////////////
 
 app.use(compression()); //compress size of the file making it downloaded faster on the browser
 
-app.use(
-    cookieSession({
-        secret: `I'm wondering...`,
-        maxAge: 1000 * 60 * 60 * 24 * 14
-    })
-);
+////////////////////////////////////////////
+//Websocket runs first before express, so userId must be retrieved first.
+//There are many ways to retrieve userId for socket IO. This is the safest (use middleware like what we did to express app and do it on server).
+//To pass the current userId during handshake between client and server (socketIO), middleware function is made
+const cookieSessionMiddleware = cookieSession({
+    secret: `I'm wondering...`,
+    maxAge: 1000 * 60 * 60 * 24 * 14
+});
 
+app.use(cookieSessionMiddleware); //for http express use
+
+io.use(function(socket, next) {
+    cookieSessionMiddleware(socket.request, socket.request.res, next);
+});
+//for socketIO use. Middleware function, so must be placed here before IO section
+///////////////////////////////////////////
 app.use(require("body-parser").json()); //for post! body-parser shld come after cookieSession
 
 app.use(csurf());
@@ -248,6 +262,81 @@ app.get("*", (req, res) => {
 });
 ///////////////////////////////////////////////////////
 
-app.listen(8082, function() {
-    console.log("I'm listening.");
+server.listen(8082, function() {
+    console.log("I'm React-project bot and I'm ready to serve you, Sir!");
 });
+//change from app to server. It is like two servers in one port. Socket IO server runs first before express http server.
+//Two different communication protocols used here. Express using http protocol and socket io using websocket
+////////////////////////////////////////////socket section///////////////////////////////////////////////////////////
+let onlineUsers = {}; //it is placed here to collect all current online users data. If it is placed inside io, onlineUser ={} everytime socket connection established
+//socket id is the same for both client side and server side. It is a connection id actually
+//socket id runs in real-time enviroment. Changes made by server/client immediately.
+//IMPORTANT! If one user opens another tab/refresh the page, another socket is generated & connected! (with different socket ID but same userId).
+//IMPORTANT! Everytime a connection established the following codes will run and these codes are individual (server creates one socket platform for each client) to each connected client (e.g. userId doesnt change).
+//
+io.on("connection", socket => {
+    if (!socket.request.session || !socket.request.session.userId) {
+        return socket.disconnect(true);
+    }
+    let listBeforeUpdate = Object.assign({}, onlineUsers);
+    let newSocketUser = true;
+    const userId = socket.request.session.userId;
+    onlineUsers[socket.id] = userId;
+    // console.log(`socketId: ${socket.id} is now connected`, userId, onlineUsers);
+    ////////////////////////////////////////////////////whenever a new socket connection established(Be it the same user(open new page/reload) or different), get online-users data
+    dB.getUsersByIds(Object.values(onlineUsers)).then(data => {
+        // console.log(data.rows); //an array of objects. ANY function from query helps to filter out all same IDs of data. Data.rows is pure data now.
+        let temp = data.rows.filter(user => user.id != userId); //filter out the current socket-connecting user
+        socket.emit("onlineUsers", temp);
+    });
+    //////////////////////////////////////////////broadcast to others if this socket user is new, to rerender the page of other socket users
+    for (let socketID in listBeforeUpdate) {
+        if (listBeforeUpdate[socketID] === userId) {
+            newSocketUser = false;
+        }
+    }
+
+    if (newSocketUser) {
+        dB.getUsersByIds(Object.values(onlineUsers)).then(data => {
+            let temp = data.rows.filter(user => user.id == userId);
+            io.sockets.sockets[socket.id].broadcast.emit("userJoined", temp);
+        });
+    }
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    socket.on("disconnect", () => {
+        // console.log(`Disconnected: ${socket.id}`, userId);
+        delete onlineUsers[socket.id];
+        // console.log(onlineUsers);
+        // console.log(userId);
+        // console.log(Object.values(onlineUsers).includes(1));
+        if (!Object.values(onlineUsers).includes(userId)) {
+            io.sockets.emit("userLeft", userId);
+        }
+        // If there is user opening two pages or more and he shuts down one page, it shldnt remove his profile
+    });
+    //disconnect is predefined event. It is triggered whenever the client loses socket connection
+    //refresh the page has the same effect as open in the new page and then close it.
+
+    ///////////////////////////////////////////////////////////////part 9////////////////////////////////////////////////////
+
+    dB.getTop10Comments().then(data => {
+        // console.log("////////////////////////////////////////////////////////");
+        // console.log(data.rows);
+        socket.emit("top10comments", data.rows);
+    });
+
+    socket.on("newChatMessage", data => {
+        // console.log(data, userId);
+        dB.addComment(data, userId).then(data => {
+            // console.log(data.rows); //returns comment id
+            dB.getComment(data.rows[0].id).then(data => {
+                // console.log("here: ", data.rows);
+                io.sockets.emit("chatMessageForRedux", data.rows); //socket.broadcast.emit and io.sockets.sockets[socket.id].broad... same thing, but io is used to send all
+            });
+        });
+    });
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+});
+
+//Bug: during refresh disconnect and reconnect events run. So we see the user profile rerender in other users profile. Bad user experience

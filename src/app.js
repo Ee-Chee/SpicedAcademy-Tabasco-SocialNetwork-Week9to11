@@ -7,6 +7,8 @@ import BioEditor from "./bioeditor";
 import OtherProfile from "./otherprofile";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 import Friends from "./friends";
+import OnlineFriends from "./onlinefriends";
+import Chat from "./chat";
 
 export default class App extends React.Component {
     constructor(props) {
@@ -58,6 +60,8 @@ export default class App extends React.Component {
                                 Welcome, you are number #{this.state.id} user
                             </h1>
                             <Link to="/friends">My friends</Link>
+                            <Link to="/online">Check whos online</Link>
+                            <Link to="/chat">Lets chat</Link>
                             <div>
                                 <Avatar
                                     imageUrl={this.state.avatarurl}
@@ -119,6 +123,8 @@ export default class App extends React.Component {
                         />
                         <Route path="/user/:idnum" component={OtherProfile} />
                         <Route path="/friends" component={Friends} />
+                        <Route path="/online" component={OnlineFriends} />
+                        <Route path="/chat" component={Chat} />
                         {this.state.uploaderVisible && (
                             <Uploader
                                 handleImage={url =>
