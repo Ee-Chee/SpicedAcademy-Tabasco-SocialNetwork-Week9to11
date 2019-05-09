@@ -32,8 +32,10 @@ export default class Uploader extends React.Component {
 
     render() {
         return (
-            <div className="center">
-                <div>Select a nice photo and upload to your Avatar slot!</div>
+            <div id="center-uploader">
+                <div className="text">
+                    Pretty sure you have a nice photo. Update your avatar!
+                </div>
                 {this.state.valid ? (
                     <div />
                 ) : (
@@ -48,6 +50,13 @@ export default class Uploader extends React.Component {
                         }}
                     />
                     <button onClick={this.submit}>Upload!</button>
+                    <button
+                        onClick={() => {
+                            this.props.change(false);
+                        }}
+                    >
+                        close
+                    </button>
                 </form>
             </div>
         );

@@ -56,12 +56,23 @@ export default class App extends React.Component {
                                 height={100}
                                 width={100}
                             />
-                            <h1>
-                                Welcome, you are number #{this.state.id} user
-                            </h1>
-                            <Link to="/friends">My friends</Link>
-                            <Link to="/online">Check whos online</Link>
-                            <Link to="/chat">Lets chat</Link>
+                            <div id="toptext">
+                                Welcome, you are the{" "}
+                                <span id="num">#{this.state.id}</span> snow
+                                builder
+                            </div>
+                            <Link className="link" to="/">
+                                Bio
+                            </Link>
+                            <Link className="link" to="/friends">
+                                My snow builders
+                            </Link>
+                            <Link className="link" to="/online">
+                                Online builders
+                            </Link>
+                            <Link className="link" to="/chat">
+                                Chit-Chat
+                            </Link>
                             <div>
                                 <Avatar
                                     imageUrl={this.state.avatarurl}
@@ -71,9 +82,33 @@ export default class App extends React.Component {
                                     hi={100}
                                     wif={100}
                                 />
-                                <a href="/logout">log out</a>
+                            </div>
+                            <div id="addtional-function">
+                                <a className="link" href="/logout">
+                                    <i className="fas fa-door-open" />
+                                </a>
+                                <p
+                                    className="link"
+                                    onClick={() =>
+                                        this.setState({
+                                            uploaderVisible: true
+                                        })
+                                    }
+                                >
+                                    <i className="fas fa-cloud-upload-alt" />
+                                </p>
                             </div>
                         </div>
+                        {this.state.uploaderVisible && (
+                            <Uploader
+                                handleImage={url =>
+                                    this.setState({ avatarurl: url })
+                                }
+                                change={boolean =>
+                                    this.setState({ uploaderVisible: boolean })
+                                }
+                            />
+                        )}
                         <Route
                             exact
                             path="/"
@@ -125,16 +160,6 @@ export default class App extends React.Component {
                         <Route path="/friends" component={Friends} />
                         <Route path="/online" component={OnlineFriends} />
                         <Route path="/chat" component={Chat} />
-                        {this.state.uploaderVisible && (
-                            <Uploader
-                                handleImage={url =>
-                                    this.setState({ avatarurl: url })
-                                }
-                                change={boolean =>
-                                    this.setState({ uploaderVisible: boolean })
-                                }
-                            />
-                        )}
                     </div>
                 </BrowserRouter>
             );
@@ -142,3 +167,17 @@ export default class App extends React.Component {
     }
 }
 ///if(!this.state.id) to display loading page while axios is doing his job
+
+//////////////////////////////////////////////////////////////extra//////////////////////////////////////////
+// this feature isn't used right now but if a loggin user goes to user 11 profile and click a link on user 11 profile to user 15 profile, the new component will not render but url link changes.
+//Use this to solve:
+// <Route
+//     path="/user/:id"
+//     render={props => (
+//         <OtherProfile
+//             key={props.match.url}
+//             match={props.match}
+//             history={props.history}
+//         />
+//     )}
+// />

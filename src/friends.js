@@ -28,7 +28,7 @@ class Friends extends React.Component {
             );
         } //to handle undefined data while waiting for axios retrieving data. Otherwise, error prompted for currentFriends.map undefined below
         const myFriends = (
-            <div>
+            <div className="text profile-container">
                 <h2>My added friends</h2>
                 <div className="profile">
                     {currentFriends.map(friend => (
@@ -61,7 +61,7 @@ class Friends extends React.Component {
         );
         //////////////////////////////////////////////////////////////////////////////////////
         const friendRequesters = (
-            <div>
+            <div className="text profile-container">
                 <h2>These people wanna be your friends</h2>
                 <div className="profile">
                     {requestingFriends.map(friend => (

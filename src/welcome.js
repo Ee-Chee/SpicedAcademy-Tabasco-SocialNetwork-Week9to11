@@ -4,7 +4,7 @@ import Registration from "./registration";
 import Login from "./login";
 
 let styleObj = {
-    textAlign: "center"
+    fontSize: "30px"
 };
 
 //component function
@@ -12,15 +12,19 @@ export default function Welcome() {
     return (
         <div className="center">
             <img src="social-network.jpg" height={300} width={300} />
-            <h1 style={styleObj}>
-                I am excited about my first social network web application!
-            </h1>
-            <HashRouter>
-                <div>
-                    <Route exact path="/" component={Registration} />
-                    <Route path="/login" component={Login} />
+            <div id="container1" className="center">
+                <div className="brand">
+                    M<i className="fas fa-video moment" />
+                    MENT <span style={styleObj}>MAL</span>
                 </div>
-            </HashRouter>
+
+                <HashRouter>
+                    <div>
+                        <Route exact path="/" component={Registration} />
+                        <Route path="/login" component={Login} />
+                    </div>
+                </HashRouter>
+            </div>
         </div>
     );
 }

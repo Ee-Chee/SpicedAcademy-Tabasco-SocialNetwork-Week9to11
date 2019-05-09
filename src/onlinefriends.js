@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 //Important concept: Redux is a global of global variables(or store). It means the data can be accessed everywhere even it is by different .js file.
 //There is no need to change state data, so, action is not requestingFriends
 //There is a need of passing down data, connect is needed, so that data can be rendered
@@ -20,17 +21,21 @@ class OnlineFriends extends React.Component {
             );
         }
         const allOnlineUsers = (
-            <div>
+            <div className="profile-container text">
                 <h1>All online friends, wanna say hi?</h1>
                 <div className="profile">
                     {onlineUsers.map(user => (
                         <div className="center" key={user.id}>
-                            <img
-                                src={user.avatarurl}
-                                height={100}
-                                width={100}
-                            />
-                            {user.firstn} {user.lastn}
+                            <Link className="link" to={"/user/" + user.id}>
+                                <img
+                                    src={user.avatarurl}
+                                    height={100}
+                                    width={100}
+                                />
+                                <div>
+                                    {user.firstn} {user.lastn}
+                                </div>
+                            </Link>
                         </div>
                     ))}
                 </div>

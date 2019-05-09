@@ -3,10 +3,19 @@ import { connect } from "react-redux";
 import { socket } from "./socket";
 
 class Chat extends React.Component {
-    componentDidUpdate() {
-        this.myDiv.scrollTop = "200px"; //scroll all the way down to bottom everytime update made
+    componentDidMount() {
+        if (this.myDiv) {
+            this.myDiv.scrollTop = this.myDiv.scrollHeight;
+        }
     }
-    //chat container was binded and packed and saved at myDiv
+    //mounted function runs once only but if(this.myDiv) will still be triggered automatically when this-myDiv available during rendering.
+    //It seems like mounted function actually mounts its content and if a conditional statement is mounted, it will be triggered when it is true during rendering
+
+    componentDidUpdate() {
+        // console.log("hihi", this.myDiv.scrollHeight);
+        this.myDiv.scrollTop = this.myDiv.scrollHeight; //scroll all the way down to bottom everytime update made
+    }
+    //chat container was binded and packed and saved at myDiv and the binded chat container must be the div that made scrollable
 
     handleInput(e) {
         if (e.which === 13) {
@@ -34,15 +43,18 @@ class Chat extends React.Component {
 
         const comments = this.props.allChats;
         const allComments = (
-            <div className="center">
+            <div className="center text">
                 <h1>Chat Chamber</h1>
-                <div
-                    className="nicewrap"
-                    ref={chatsContainer => (this.myDiv = chatsContainer)}
-                >
-                    <div className="chats">
+                <div className="nicewrap">
+                    <div
+                        className="chats"
+                        ref={chatsContainer => (this.myDiv = chatsContainer)}
+                    >
                         {comments.map(user => (
-                            <div className="commentwrap" key={user.commentid}>
+                            <div
+                                className="commentwrap text2"
+                                key={user.commentid}
+                            >
                                 <img
                                     src={user.avatarurl}
                                     height={100}
@@ -51,7 +63,7 @@ class Chat extends React.Component {
                                 <div className="col">
                                     <div className="profile">
                                         {user.firstn} {user.lastn},{" "}
-                                        {user.created_at}
+                                        {Date(user.created_at).split("GMT", 1)}
                                     </div>
                                     {user.comment}
                                 </div>
@@ -61,7 +73,7 @@ class Chat extends React.Component {
                     <div>
                         <textarea
                             onKeyDown={this.handleInput}
-                            className="inputfield"
+                            className="inputfield text"
                         />
                     </div>
                 </div>

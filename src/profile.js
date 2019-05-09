@@ -3,7 +3,7 @@ import React from "react";
 
 export default function(props) {
     return (
-        <div className="profile">
+        <div className="profile-container text row">
             {props.profilePic}
             <div className="profile-details">
                 <div>

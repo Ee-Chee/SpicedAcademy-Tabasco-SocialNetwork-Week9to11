@@ -50,13 +50,19 @@ export default class OtherProfile extends React.Component {
             );
         } else {
             return (
-                <div>
-                    <div className="profile">
-                        <img
-                            src={this.state.avatarurl || "/default-user.png"}
-                            height={200}
-                            width={200}
-                        />
+                <div className="profile-container">
+                    <div className="profile text">
+                        <div className="center">
+                            <img
+                                src={
+                                    this.state.avatarurl || "/default-user.png"
+                                }
+                                height={200}
+                                width={200}
+                            />
+                            <Friendship profileOwnerId={this.state.id} />
+                        </div>
+
                         <div className="profile-details">
                             <div>
                                 {this.state.fn} {this.state.ln}
@@ -64,7 +70,6 @@ export default class OtherProfile extends React.Component {
                             {this.state.biodata}
                         </div>
                     </div>
-                    <Friendship profileOwnerId={this.state.id} />
                 </div>
             );
         }

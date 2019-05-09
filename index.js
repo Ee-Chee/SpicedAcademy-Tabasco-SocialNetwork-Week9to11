@@ -15,7 +15,7 @@ const cf = require("./config.json");
 ////////////////////////////////////////socket IO
 const server = require("http").Server(app); //make a server not using express but native way
 const io = require("socket.io")(server, {
-    origins: "localhost:8082 yourfunkychickenapp.herokuapp.com:*"
+    origins: "localhost:8082 momentmal.herokuapp.com:*"
 }); //Make the sockets true for only this port to prevent csrf-like attack
 ////////////////////////////////////////////////////
 

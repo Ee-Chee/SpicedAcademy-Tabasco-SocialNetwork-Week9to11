@@ -74,7 +74,11 @@ export default class Registration extends React.Component {
                         Do you wanna build a snowman?
                     </button>
                 </form>
-                <Link to="/login">Click here to Log in!</Link>
+                <Link className="link" to="/login">
+                    You once built a snowman with us before? Lets do it again!
+                </Link>
+                <img id="bee" src="/bee.svg" />
+                <div id="copyright">&copy;Dev-Wanna-Bee</div>
             </div>
         );
     }
