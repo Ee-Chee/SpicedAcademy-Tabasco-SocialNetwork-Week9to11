@@ -34,6 +34,10 @@ body {
     display: flex;
     flex-direction: column;
 }
+
+#canvas {
+    border: 3px solid aqua;
+}
 /* ---------------------General classes-------------------- */
 .col {
     display: flex;
@@ -185,4 +189,7 @@ img {
 /* profile.js */
 .profile-container {
     margin: 20px;
+}
+
+.special-img {
 }

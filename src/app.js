@@ -9,6 +9,7 @@ import { BrowserRouter, Route, Link } from "react-router-dom";
 import Friends from "./friends";
 import OnlineFriends from "./onlinefriends";
 import Chat from "./chat";
+import Snowman from "./snowman";
 
 export default class App extends React.Component {
     constructor(props) {
@@ -72,6 +73,9 @@ export default class App extends React.Component {
                             </Link>
                             <Link className="link" to="/chat">
                                 Chit-Chat
+                            </Link>
+                            <Link className="link" to="/snowman">
+                                Okay, lets build a snowman!
                             </Link>
                             <div>
                                 <Avatar
@@ -160,6 +164,7 @@ export default class App extends React.Component {
                         <Route path="/friends" component={Friends} />
                         <Route path="/online" component={OnlineFriends} />
                         <Route path="/chat" component={Chat} />
+                        <Route path="/snowman" component={Snowman} />
                     </div>
                 </BrowserRouter>
             );

@@ -262,7 +262,7 @@ app.get("*", (req, res) => {
 });
 ///////////////////////////////////////////////////////
 
-server.listen(8082, function() {
+server.listen(process.env.PORT || 8082, function() {
     console.log("I'm React-project bot and I'm ready to serve you, Sir!");
 });
 //change from app to server. It is like two servers in one port. Socket IO server runs first before express http server.
@@ -273,7 +273,7 @@ let onlineUsers = {}; //it is placed here to collect all current online users da
 //socket id runs in real-time enviroment. Changes made by server/client immediately.
 //IMPORTANT! If one user opens another tab/refresh the page, another socket is generated & connected! (with different socket ID but same userId).
 //IMPORTANT! Everytime a connection established the following codes will run and these codes are individual (server creates one socket platform for each client) to each connected client (e.g. userId doesnt change).
-//
+
 io.on("connection", socket => {
     if (!socket.request.session || !socket.request.session.userId) {
         return socket.disconnect(true);
@@ -336,7 +336,26 @@ io.on("connection", socket => {
         });
     });
 
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////snowman game test/////////////////////////////////////////////////
+    socket.on("reset", () => {
+        io.sockets.emit("refresh");
+    });
+
+    socket.on("snowmanMouseUp", data => {
+        socket.broadcast.emit("moving", data);
+    });
+
+    socket.on("snowmanMouseDown", data => {
+        socket.broadcast.emit("startingPoint", data);
+    });
+
+    socket.on("snowmanMouseMove", data => {
+        // console.log(data);
+        if (data[1]) {
+            socket.broadcast.emit("moving", data);
+        }
+    });
 });
 
 //Bug: during refresh disconnect and reconnect events run. So we see the user profile rerender in other users profile. Bad user experience
+//IMPORTANT!!: heroku login --interactive

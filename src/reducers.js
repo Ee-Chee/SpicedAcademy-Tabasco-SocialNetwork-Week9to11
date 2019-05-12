@@ -71,6 +71,22 @@ export default function(state = {}, action) {
         // console.log("here4", state.topComments);
     }
 
+    if (action.type == "draw") {
+        state = {
+            ...state,
+            movingCoordinate: [...action.coorArr]
+        };
+        // console.log("test2:", state.coordinate);
+    }
+
+    if (action.type == "start") {
+        state = {
+            ...state,
+            startingCoordinate: [...action.coorArr]
+        };
+        // console.log("test2:", state.coordinate);
+    }
+
     return state;
 }
 //note accepted is not null in the case of action.type == "make_unfriend". Database is saved NULL though

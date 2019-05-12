@@ -62,3 +62,17 @@ export async function addComment(comment) {
         comment
     };
 }
+
+export async function draw(coorArr) {
+    return {
+        type: "draw",
+        coorArr
+    };
+}
+
+export async function start(coorArr) {
+    return {
+        type: "start",
+        coorArr
+    };
+}

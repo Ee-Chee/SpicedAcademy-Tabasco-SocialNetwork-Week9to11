@@ -4,7 +4,9 @@ import {
     userJoined,
     userLeft,
     topComments,
-    addComment
+    addComment,
+    draw,
+    start
 } from "./actions";
 
 export let socket; //use in part 9, export to chat.js so that it still connected and all events defined are passed
@@ -39,6 +41,19 @@ export function init(store) {
         socket.on("chatMessageForRedux", comment => {
             // console.log("here: ", comment);
             store.dispatch(addComment(comment));
+        });
+
+        socket.on("moving", coorArr => {
+            store.dispatch(draw(coorArr));
+        });
+
+        socket.on("startingPoint", coorArr => {
+            // console.log("here: ", coorArr);
+            store.dispatch(start(coorArr));
+        });
+
+        socket.on("refresh", () => {
+            location.reload();
         });
     }
     //it is you return  socket here and export this function or export the let socket
