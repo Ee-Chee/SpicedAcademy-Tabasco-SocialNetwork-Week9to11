@@ -95,9 +95,27 @@ profile owner = the user whose profile is being viewed, the one whose id is in t
 ```     
 
 7) My snow builders
-* 'My snow builders' is the second tab menu. It contains Friends component that allows users to see all of the users who have sent them friend requests that they have not yet accepted as well as the full list of all their friends. The path for this screen is '/friends'.
-* The friends and potential friends shown in these two lists are linked to the appropriate profiles. Displayed with each added friend  a link or a button that allows the user to end the friendship. Displayed with each requester should be a link or button for accepting the request.
+* 'My snow builders' is on the second tab menu. It contains a Friends component that allows users to see all of the users who have sent them friend requests that they have not yet accepted as well as the full list of all their friends. The path for this is '/friends'.
+* Each added friend is shown along with a button that allows the user to end the friendship. Similarly, each potential friend is displayed with a button for accepting the request.
+* Redux is used for this feature as well as all other added features henceforward. The fetching of the friends and requesters are caused by the dispatching of an action. Actions are dispatched also for accepting friend requests and ending friendships. 
+* When requests are accepted and friendships ended, reducer changes the state object to one that has the new list of users. This causes re-rendering with either new users appearing in the list of friends or old friends disappearing from it.
+
 <img src="friends.png">
+
+8) Online builders
+* OnlineFriends component is created(client) and socket.io(server) is used to display all the current online friends.
+a. Server side
+* When a user(client) first communicates with server, a connection with socket.io is also established. Socket.io runs the cookie-session middleware to get the id of the user. If no cookie is detected, socket.io is then disconnected.
+* An object, onlineUsers that uses socket ids as keys and user ids as values is created. Those ids are used to detect the online users.
+* If a user who has the site open in two tabs(two sockets associated) closes one of them, she will still remain in the list of online users.
+b. Client side
+* In client code, the 'onlineUsers', 'userJoined', and 'userLeft' events are listened to dispatch corresponding actions. The actions result in an up-to-date list of online users being present in the global state object at all times. OnlineFriends component for displaying the list of online users is passed the list as a prop by a container component created with the connect function exported by react-redux.
+
+<img src="online.png">
+
+9) Chit-chat
+
+
 **_NOTES_**:
 * Coding technologies: HTML, CSS, Javascript
 Webpack, the tool we use to compile our code, will start with src/start.js. Any js file that start.js imports from (as well as the files that those files import from) will be included in the bundle. The js files you create and import should be placed in the src directory.
