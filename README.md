@@ -65,7 +65,40 @@ b. A new BioEditor component, which handles the user's bio.
 <img src="otherprofile.png">
 
 6) Friend Request
+* A Friendship component is created as a child of the OtherProfile component to allow users to friend and unfriend other users.
+* The logic for determining what the button should say and what should happen when it is clicked goes likes this:
 
+```
+Is there an existing request between the profile viewer and profile owner?
+                            /           \
+                           /             \
+                       no /               \ yes
+                         /                 \
+                        /                   \
+       "Send Friend Request"              Is the request accepted?
+                                                /           \
+                                               /             \
+                                           no /               \ yes
+                                             /                 \
+                                            /                   \
+            Is the profile owner the recipient?              "Unfriend"
+                       /           \
+                      /             \
+                  no /               \ yes
+                    /                 \
+                   /                   \
+"Accept Friend Request"             "Cancel Friend Request"
+
+
+profile viewer = the logged-in user, the one who is viewing the profile
+profile owner = the user whose profile is being viewed, the one whose id is in the url
+```     
+
+7) My snow builders
+* 'My snow builders' is the second tab menu. It contains Friends component that allows users to see all of the users who have sent them friend requests that they have not yet accepted as well as the full list of all their friends. The path for this screen is '/friends'.
+* The friends and potential friends shown in these two lists are linked to the appropriate profiles. Displayed with each added friend  a link or a button that allows the user to end the friendship. Displayed with each requester should be a link or button for accepting the request.
+<img src="friends.png">
 **_NOTES_**:
 * Coding technologies: HTML, CSS, Javascript
 Webpack, the tool we use to compile our code, will start with src/start.js. Any js file that start.js imports from (as well as the files that those files import from) will be included in the bundle. The js files you create and import should be placed in the src directory.
+other min project redux
