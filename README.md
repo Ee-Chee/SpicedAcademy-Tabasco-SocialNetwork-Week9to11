@@ -27,6 +27,45 @@ A component called Welcome that renders Registration as well as the surrounding 
 
 <img src="upload.png">
 
+4) Profile and biography
+* Users' profile information is shown when they first log in. This includes their name, their avatar and their bio. On this screen, users are able to update their profile picture and edit their bio(or add one if they haven't already).
+* The Profile component is responsible for laying out the content: the user's name, profile picture, and bio. Profile is also a direct child of App.
+* The Profile component itself contains two other components:
+a. The existing Avatar component.
+b. A new BioEditor component, which handles the user's bio. 
+* The logic for determining what to show in the render function of BioEditor goes like this:
+
+```
+  Is the bio being edited?
+          /       \
+         /         \
+    yes /           \ no
+       /             \
+      /               \
+<textarea>           Is there a saved bio already?
+"Save" button                 /       \
+                             /         \
+                        yes /           \ no
+                           /             \
+                          /               \
+            Current bio text             "Add" button
+            "Edit" button
+```
+
+* Since information that Profile needs to show is held in the state of App, App passes this information that BioEditor and the second Avatar need as props to Profile and then Profile passes those props to its children.
+
+<img src="profile-bio.png">
+
+<img src="profile-bio2.png">
+
+5) Viewing other profiles by changing user ID from url
+* The responsibility of the OtherProfile component is to show the profile information of a user other than the logged-in user. 
+* When OtherProfile mounts, it makes a request to retrieve the relevant profile information. This means it must know the id of the user whose profile it is to display. This id comes from the url. Users can set the path of the Route that renders OtherProfile to a value such as '/user/:idnum', the component will automatically receive a prop named match that contains information about how React Router interpreted the url. The match object has a property named params(this.props.match.params.idnum), an object that has properties for each segment of the path you marked with a colon(in this case, it is 'idnum'). With this, the user ID now is accessible.
+
+<img src="otherprofile.png">
+
+6) Friend Request
+
 **_NOTES_**:
 * Coding technologies: HTML, CSS, Javascript
 Webpack, the tool we use to compile our code, will start with src/start.js. Any js file that start.js imports from (as well as the files that those files import from) will be included in the bundle. The js files you create and import should be placed in the src directory.
