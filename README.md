@@ -30,9 +30,7 @@ A component called Welcome that renders Registration as well as the surrounding 
 4) Profile and biography
 * Users' profile information is shown when they first log in. This includes their name, their avatar and their bio. On this screen, users are able to update their profile picture and edit their bio(or add one if they haven't already).
 * The Profile component is responsible for laying out the content: the user's name, profile picture, and bio. Profile is also a direct child of App.
-* The Profile component itself contains two other components:
-a. The existing Avatar component.
-b. A new BioEditor component, which handles the user's bio. 
+* The Profile component itself contains two other components: The existing Avatar component and a new BioEditor component, which handles the user's bio. 
 * The logic for determining what to show in the render function of BioEditor goes like this:
 
 ```
@@ -104,12 +102,14 @@ profile owner = the user whose profile is being viewed, the one whose id is in t
 
 8) Online builders
 * OnlineFriends component is created(client) and socket.io(server) is used to display all the current online friends.
-a. Server side
+
+Server side
 * When a user(client) first communicates with server, a connection with socket.io is also established. Socket.io runs the cookie-session middleware to get the id of the user. If no cookie is detected, socket.io is then disconnected.
-* An object, onlineUsers that uses socket ids as keys and user ids as values is created. Those ids are used to detect the online users.
+* An object, onlineUsers that uses socket ids as keys and user ids as values is created. Those ids are used to detect the online users by emitting 'onlineUsers', 'userJoined' and 'userLeft' events.
 * If a user who has the site open in two tabs(two sockets associated) closes one of them, she will still remain in the list of online users.
-b. Client side
-* In client code, the 'onlineUsers', 'userJoined', and 'userLeft' events are listened to dispatch corresponding actions. The actions result in an up-to-date list of online users being present in the global state object at all times. OnlineFriends component for displaying the list of online users is passed the list as a prop by a container component created with the connect function exported by react-redux.
+
+Client side
+* In client code, the 'onlineUsers', 'userJoined' and 'userLeft' events are listened to dispatch corresponding actions. The actions result in an up-to-date list of online users being present in the global state object at all times. OnlineFriends component for displaying the list of online users is passed the list as a prop by a container component created with the connect function exported by react-redux.
 
 <img src="online.png">
 
