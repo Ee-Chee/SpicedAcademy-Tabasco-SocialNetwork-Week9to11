@@ -131,9 +131,6 @@ Client side
 * Coding technologies: HTML, CSS, Javascript, JSON, DOM, Axios+crsf, Canvas, React.js, Redux, Node.js, Express, multer, bcrypt, compression, Jest(Enzyme), Postgresql, cookie-session and Socket-io.  
 * Third party tools: Amazon Web Services(S3 storage), Fontawesome-Icons, ReduxDevTools, GoogleFonts and Webpack.
 
-https://github.com/Ee-Chee/SpicedAcademy-Tabasco-SocialNetwork/tree/master/mini-project-REDUX
-https://github.com/Ee-Chee/SpicedAcademy-FinalProject
-
 Thank you for reading. 10 out of 10 likes to this project. Like React.js, Redux and Socket.io very much. I have completed 3 projects that making use of these technologies so far, check the other two projects out:
-[mini project](https://github.com/Ee-Chee/SpicedAcademy-Tabasco-SocialNetwork/tree/master/mini-project-REDUX). It helped me to master the concept of Redux. 
-[Final project of SpicedAcademy](https://github.com/Ee-Chee/SpicedAcademy-FinalProject)
+* [mini project](https://github.com/Ee-Chee/SpicedAcademy-Tabasco-SocialNetwork/tree/master/mini-project-REDUX). It helped me to master the concept of Redux. 
+* [Final project of SpicedAcademy](https://github.com/Ee-Chee/SpicedAcademy-FinalProject)
