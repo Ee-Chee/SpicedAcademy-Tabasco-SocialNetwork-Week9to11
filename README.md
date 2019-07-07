@@ -1,4 +1,4 @@
-# SocialNetwork
+# Social Network
 This is a social network which users can sign up, say a little about themselves, become friends with other users and even build a snowman together. This is also a single-page application made with React.js. Interesting? Register an account with your friends and have fun together: https://momentmal.herokuapp.com.
 
 ## Features
