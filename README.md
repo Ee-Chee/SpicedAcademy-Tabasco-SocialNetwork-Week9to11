@@ -114,9 +114,26 @@ Client side
 <img src="online.png">
 
 9) Chit-chat
+* Socket.io is used to create a community-wide chat room. This feature uses socket.io and Redux similarly to the list of online users.
+* A child route '/chat' is created to BrowserRouter in App component. Chat component displays the messages that have been received as well as a textarea in which the user can type a new message. 
+* As the user hits the enter key in this textarea, a 'chatMessage' event is emitted. The server receives this event, it broadcasts a 'newChatMessage' event to all of the connected sockets. The payload for this event includes the message the user sent as well as the user's id, first name, last name and avatar. The server stores the message in a database table. 
+* In the chat UI, a newly received message is always added to the bottom of the display area and automatic scrolling brings it into view. 
+ 
+<img src="chat.png">
 
+10) Build a snowman together
+* Snowman component is a real-time multi-player mini game of drawing. The feature allows all online users to join the 'stick-man' drawing at the same time. With this, you can build a snowman together with your friends and strangers. 
+* By means of socket-io, canvas and redux, each coordinate of the drawing made is broadcasted to every online user, making real-time drawing possible for all online users.  
+
+<img src="snowman.png">
 
 **_NOTES_**:
-* Coding technologies: HTML, CSS, Javascript
-Webpack, the tool we use to compile our code, will start with src/start.js. Any js file that start.js imports from (as well as the files that those files import from) will be included in the bundle. The js files you create and import should be placed in the src directory.
-other min project redux
+* Coding technologies: HTML, CSS, Javascript, JSON, DOM, Axios+crsf, Canvas, React.js, Redux, Node.js, Express, multer, bcrypt, compression, Jest(Enzyme), Postgresql, cookie-session and Socket-io.  
+* Third party tools: Amazon Web Services(S3 storage), Fontawesome-Icons, ReduxDevTools, GoogleFonts and Webpack.
+
+https://github.com/Ee-Chee/SpicedAcademy-Tabasco-SocialNetwork/tree/master/mini-project-REDUX
+https://github.com/Ee-Chee/SpicedAcademy-FinalProject
+
+Thank you for reading. 10 out of 10 likes to this project. Like React.js, Redux and Socket.io very much. I have completed 3 projects that making use of these technologies so far, check the other two projects out:
+[mini project](https://github.com/Ee-Chee/SpicedAcademy-Tabasco-SocialNetwork/tree/master/mini-project-REDUX). It helped me to master the concept of Redux. 
+[Final project of SpicedAcademy](https://github.com/Ee-Chee/SpicedAcademy-FinalProject)
